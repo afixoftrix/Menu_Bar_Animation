@@ -19,24 +19,29 @@ const Bar = styled.div`
   position: relative;
 `;
 export class MenuBtn extends React.Component {
-  state = {};
-  componentDidMount() {
-    TweenMax.to("#topBar", 1, {
-      rotation: 45,
-      top: 16
-    });
-    TweenMax.to("#midBar", 1, {
-      rotation: -45
-    });
-    TweenMax.to("#botBar", 1, {
-      top: 10
-    });
+  state = {
+    clicked: false
+  };
+
+
+  handleClick = () =>{
+    if (this.state.clicked === false){
+      this.setState({
+        clicked: true
+      });
+      return turnOn();
+    } else{
+      this.setState({
+        clicked: false
+      });
+      return turnOff();
+    }
   }
 
   render() {
     return (
       <Container>
-        <MenuCnt>
+        <MenuCnt onClick={this.handleClick} >
           <Bar id="topBar" mg="14px" />
           <Bar id="midBar" mg="14px" />
           <Bar id="botBar" mg="0" />
@@ -44,4 +49,30 @@ export class MenuBtn extends React.Component {
       </Container>
     );
   }
+}
+
+const turnOn = () =>{
+  TweenMax.to("#topBar", 1, {
+    rotation: 45,
+    top: 16
+  });
+  TweenMax.to("#midBar", 1, {
+    rotation: -45
+  });
+  TweenMax.to("#botBar", 1, {
+    top: 10
+  });
+}
+
+const turnOff = ()=>{
+  TweenMax.to("#topBar", .5, {
+    rotation: 0,
+    top: 0
+  });
+  TweenMax.to("#midBar", .5, {
+    rotation: 0
+  });
+  TweenMax.to("#botBar", 1, {
+    top: 0
+  });
 }
